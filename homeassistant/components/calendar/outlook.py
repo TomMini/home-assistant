@@ -13,7 +13,6 @@ import yaml
 
 # Import the device class from the component that you want to support
 import homeassistant.util.dt as dt_util
-import homeassistant.loader as loader
 import homeassistant.helpers.config_validation as cv
 from homeassistant.util import Throttle
 from homeassistant.core import callback
@@ -133,15 +132,11 @@ def request_app_setup(hass, config, oauth, add_devices):
     hass.http.register_view(
         OutlookAuthCallbackView(config, add_devices, oauth))
 
-    persistent_notification = loader.get_component('persistent_notification')
-    persistent_notification.create(
-        hass, 'In order to authorize Home-Assistant<br/>'
-              'to view your calendars<br />'
-              'you must visit: <a href="{}" target="_blank">{}</a><br />'
-              'Callback url: {}'
-              ''.format(start_url, start_url, callback_url),
-        title=NOTIFICATION_TITLE, notification_id=NOTIFICATION_ID
-    )
+    message = ('In order to authorize Home-Assistant<br/>'
+               'to view your calendars<br />'
+               'you must visit: <a href="{}" target="_blank">{}</a><br />'
+               'Callback url: {}').format(start_url, start_url, callback_url)
+    hass.components.persistent_notification.create(message, NOTIFICATION_TITLE, NOTIFICATION_ID)
 
 
 class OutlookService():
