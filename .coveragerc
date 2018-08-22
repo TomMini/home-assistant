@@ -399,6 +399,7 @@ omit =
     homeassistant/components/browser.py
     homeassistant/components/calendar/caldav.py
     homeassistant/components/calendar/todoist.py
+    homeassistant/components/calendar/outlook.py
     homeassistant/components/camera/bloomsky.py
     homeassistant/components/camera/canary.py
     homeassistant/components/camera/familyhub.py
